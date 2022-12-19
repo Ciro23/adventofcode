@@ -4,6 +4,7 @@ import it.tino.adventofcode.FileLinesReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CaloriesCarried {
@@ -15,8 +16,8 @@ public class CaloriesCarried {
         List<String> lines = fileLinesReader.getFileLines("calories-carried-by-elves.txt");
         List<Integer> caloriesCarriedByElves = caloriesCarried.getCaloriesCarriedByElves(lines);
 
-        Integer maximumCaloriesCarried = Collections.max(caloriesCarriedByElves);
-        System.out.println("The elf carrying the most calories got " + maximumCaloriesCarried);
+        List<Integer> maximumCaloriesCarried = caloriesCarried.getMaxOfList(caloriesCarriedByElves, 3);
+        System.out.println("The elves carrying the most calories got " + maximumCaloriesCarried);
     }
 
     /**
@@ -46,5 +47,15 @@ public class CaloriesCarried {
         }
 
         return caloriesCarriedByElves;
+    }
+
+    public List<Integer> getMaxOfList(List<Integer> list, int quantity) {
+        LinkedList<Integer> higherValues = new LinkedList<>();
+        for (int i = 0; i < quantity; i++) {
+            Integer max = Collections.max(list);
+            higherValues.addLast(max);
+            list.remove(max);
+        }
+        return higherValues;
     }
 }
