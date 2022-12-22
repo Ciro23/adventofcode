@@ -22,7 +22,7 @@ public class CaloriesCarried {
 
     /**
      * Each elf writes the calories for all the food
-     * their carrying in a document, and separates
+     * they're carrying in a document, and separates
      * their own inventory from the previous Elf's inventory
      * (if any) by a blank line
      */
