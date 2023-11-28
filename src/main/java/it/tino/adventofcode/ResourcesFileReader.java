@@ -8,8 +8,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FileLinesReader {
+public class ResourcesFileReader {
 
+    /**
+     * Easily read project resources files.
+     * @param filename The name of the file inside the resources'
+     *                 directory.
+     * @return The file lines, or an empty list if the file doesn't
+     * exist or an i/o error occurred.
+     */
     public List<String> getFileLines(String filename) {
         InputStream inputStream = this.getClass()
                 .getClassLoader()

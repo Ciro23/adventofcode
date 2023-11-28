@@ -1,103 +1,36 @@
 package it.tino.adventofcode.day2;
 
-import it.tino.adventofcode.FileLinesReader;
+import it.tino.adventofcode.ResourcesFileReader;
+import it.tino.adventofcode.day2.component.FirstStrategy;
+import it.tino.adventofcode.day2.component.Match;
+import it.tino.adventofcode.day2.component.Strategy;
 
 import java.util.*;
 
 public class RockPaperScissorsStrategy {
 
     public static void main(String[] args) {
-        FileLinesReader fileLinesReader = new FileLinesReader();
+        ResourcesFileReader fileReader = new ResourcesFileReader();
         RockPaperScissorsStrategy rockPaperScissorsStrategy = new RockPaperScissorsStrategy();
 
-        List<String> lines = fileLinesReader.getFileLines("rock-paper-scissors-strategy.txt");
-        int totalScore = rockPaperScissorsStrategy.findScoreAccordingToStrategyGuide(lines);
+        List<String> lines = fileReader.getFileLines("rock-paper-scissors-strategy.txt");
+        Collection<Match> matches = rockPaperScissorsStrategy.getMatchesFromFileLines(lines);
 
-        System.out.println(totalScore);
+        Strategy firstStrategy = new FirstStrategy();
+        int firstStrategyScore = firstStrategy.findScore(matches);
+
+        System.out.println("The score calculated using the first strategy is: " + firstStrategyScore);
     }
 
-    private static class Shape implements Comparable<Shape> {
-
-        String id;
-
-        /**
-         * Each shape allows to obtain a score
-         * only for using them
-         */
-        int score;
-
-        Set<String> beatable;
-
-        public Shape(String character) {
-            setId(character);
-            setScore();
-
-            switch (id) {
-                case "A" -> setBeatable(Set.of("C"));
-                case "B" -> setBeatable(Set.of("A"));
-                case "C" -> setBeatable(Set.of("B"));
-            }
-        }
-
-        public void setId(String character) {
-            character = character.toUpperCase();
-            Map<String, String> alternativeIds = new HashMap<>();
-            alternativeIds.put("X", "A");
-            alternativeIds.put("Y", "B");
-            alternativeIds.put("Z", "C");
-
-            id = alternativeIds.getOrDefault(character, character);
-        }
-
-        public void setBeatable(Set<String> beatable) {
-            this.beatable = beatable;
-        }
-
-        public void setScore() {
-            Map<String, Integer> scorePerShape = new HashMap<>();
-            scorePerShape.put("A", 1);
-            scorePerShape.put("B", 2);
-            scorePerShape.put("C", 3);
-
-            this.score = scorePerShape.get(id);
-        }
-
-        public int getScore() {
-            return score;
-        }
-
-        @Override
-        public int compareTo(Shape that) {
-            if (this.id.equals(that.id)) {
-                return 0;
-            }
-
-            if (this.beatable.contains(that.id)) {
-                return 1;
-            }
-
-            return -1;
-        }
-    }
-
-    public int findScoreAccordingToStrategyGuide(List<String> lines) {
-        int scoreForShape = 0;
-        int scoreForMatchOutcome = 0;
+    public Collection<Match> getMatchesFromFileLines(Collection<String> lines) {
+        List<Match> matches = new ArrayList<>();
         for (String line : lines) {
-            String[] x = line.split(" ");
+            String[] split = line.split(" ");
 
-            Shape shapeSelectedByOpponent = new Shape(x[0]);
-            Shape shapeToRespondWith = new Shape(x[1]);
-
-            scoreForShape += shapeToRespondWith.getScore();
-
-            int matchOutcome = shapeToRespondWith.compareTo(shapeSelectedByOpponent);
-            if (matchOutcome > 0) {
-                scoreForMatchOutcome += 6;
-            } else if (matchOutcome == 0) {
-                scoreForMatchOutcome += 3;
-            }
+            Match match = new Match(split[0], split[1]);
+            matches.add(match);
         }
-        return scoreForShape + scoreForMatchOutcome;
+
+        return matches;
     }
 }

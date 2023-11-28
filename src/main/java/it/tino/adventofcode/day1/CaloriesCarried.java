@@ -1,10 +1,9 @@
 package it.tino.adventofcode.day1;
 
-import it.tino.adventofcode.FileLinesReader;
+import it.tino.adventofcode.ResourcesFileReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,9 +19,9 @@ public class CaloriesCarried {
 
     public static void main(String[] args) {
         CaloriesCarried caloriesCarried = new CaloriesCarried();
-        FileLinesReader fileLinesReader = new FileLinesReader();
+        ResourcesFileReader fileReader = new ResourcesFileReader();
 
-        List<String> lines = fileLinesReader.getFileLines("calories-carried-by-elves.txt");
+        List<String> lines = fileReader.getFileLines("calories-carried-by-elves.txt");
         List<Integer> caloriesCarriedByElves = caloriesCarried.getCaloriesCarriedByElves(lines);
 
         List<Integer> maximumCaloriesCarried = caloriesCarried.getMaxOfList(caloriesCarriedByElves, 3);
