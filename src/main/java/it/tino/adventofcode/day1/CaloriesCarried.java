@@ -7,6 +7,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Given a document with all the calories carried
+ * by each elf:
+ * 1. Find the Elf carrying the most Calories.
+ * How many total Calories is that Elf carrying?
+ * <br>
+ * 2. Find the top three Elves carrying the most Calories.
+ * How many Calories are those Elves carrying in total?
+ */
 public class CaloriesCarried {
 
     public static void main(String[] args) {
@@ -17,7 +26,13 @@ public class CaloriesCarried {
         List<Integer> caloriesCarriedByElves = caloriesCarried.getCaloriesCarriedByElves(lines);
 
         List<Integer> maximumCaloriesCarried = caloriesCarried.getMaxOfList(caloriesCarriedByElves, 3);
-        System.out.println("The elves carrying the most calories got " + maximumCaloriesCarried);
+        System.out.println("The elves carrying the most calories got respectively " + maximumCaloriesCarried);
+
+        int caloriesSum = maximumCaloriesCarried
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        System.out.printf("The total sum is: " + caloriesSum);
     }
 
     /**
@@ -49,13 +64,21 @@ public class CaloriesCarried {
         return caloriesCarriedByElves;
     }
 
-    public List<Integer> getMaxOfList(List<Integer> list, int quantity) {
-        LinkedList<Integer> higherValues = new LinkedList<>();
-        for (int i = 0; i < quantity; i++) {
-            Integer max = Collections.max(list);
-            higherValues.addLast(max);
-            list.remove(max);
+    private List<Integer> getMaxOfList(List<Integer> list, int quantity) {
+        Collections.sort(list);
+
+        List<Integer> maxNOfList = new ArrayList<>();
+        int lastElementIndex = list.size() - 1;
+
+        for (int i = lastElementIndex; i >= 0; i--) {
+            // Only a specified number of elements shall be considered.
+            if (quantity + i == lastElementIndex) {
+                break;
+            }
+
+            maxNOfList.add(list.get(i));
         }
-        return higherValues;
+
+        return maxNOfList;
     }
 }
