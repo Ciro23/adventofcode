@@ -1,6 +1,8 @@
 package it.tino.adventofcode.day2.component;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * At the beginning you get told the first character
@@ -18,16 +20,16 @@ public class FirstStrategy implements Strategy {
 
         for (Match match : matches) {
             Shape shapeSelectedByOpponent = new Shape(match.firstCharacter());
-            Shape shapeToRespondWith = new Shape(match.secondCharacter());
+
+            String shapeToRespondWithId = match.secondCharacter();
+            Map<String, Shape> alternativeIds = new HashMap<>();
+            alternativeIds.put("X", Shape.ROCK);
+            alternativeIds.put("Y", Shape.PAPER);
+            alternativeIds.put("Z", Shape.SCISSORS);
+            Shape shapeToRespondWith = alternativeIds.get(shapeToRespondWithId);
 
             scoreForShape += shapeToRespondWith.getScore();
-
-            int matchOutcome = shapeToRespondWith.compareTo(shapeSelectedByOpponent);
-            if (matchOutcome > 0) {
-                scoreForMatchOutcome += 6;
-            } else if (matchOutcome == 0) {
-                scoreForMatchOutcome += 3;
-            }
+            scoreForMatchOutcome += shapeToRespondWith.calculateMatchScore(shapeSelectedByOpponent);
         }
 
         return scoreForShape + scoreForMatchOutcome;

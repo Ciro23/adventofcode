@@ -3,6 +3,7 @@ package it.tino.adventofcode.day2;
 import it.tino.adventofcode.ResourcesFileReader;
 import it.tino.adventofcode.day2.component.FirstStrategy;
 import it.tino.adventofcode.day2.component.Match;
+import it.tino.adventofcode.day2.component.SecondStrategy;
 import it.tino.adventofcode.day2.component.Strategy;
 
 import java.util.*;
@@ -20,6 +21,11 @@ public class RockPaperScissorsStrategy {
         int firstStrategyScore = firstStrategy.findScore(matches);
 
         System.out.println("The score calculated using the first strategy is: " + firstStrategyScore);
+
+        Strategy secondStrategy = new SecondStrategy();
+        int secondStrategyScore = secondStrategy.findScore(matches);
+
+        System.out.println("The score calculated using the second strategy is: " + secondStrategyScore);
     }
 
     public Collection<Match> getMatchesFromFileLines(Collection<String> lines) {
