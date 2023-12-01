@@ -1,10 +1,10 @@
-package it.tino.adventofcode.day2;
+package it.tino.adventofcode.year2022.day2;
 
 import it.tino.adventofcode.ResourcesFileReader;
-import it.tino.adventofcode.day2.component.FirstStrategy;
-import it.tino.adventofcode.day2.component.Match;
-import it.tino.adventofcode.day2.component.SecondStrategy;
-import it.tino.adventofcode.day2.component.Strategy;
+import it.tino.adventofcode.year2022.day2.component.FirstStrategy;
+import it.tino.adventofcode.year2022.day2.component.Match;
+import it.tino.adventofcode.year2022.day2.component.SecondStrategy;
+import it.tino.adventofcode.year2022.day2.component.Strategy;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ public class RockPaperScissorsStrategy {
         ResourcesFileReader fileReader = new ResourcesFileReader();
         RockPaperScissorsStrategy rockPaperScissorsStrategy = new RockPaperScissorsStrategy();
 
-        List<String> lines = fileReader.getFileLines("rock-paper-scissors-strategy.txt");
+        List<String> lines = fileReader.getFileLines("2022/rock-paper-scissors-strategy.txt");
         Collection<Match> matches = rockPaperScissorsStrategy.getMatchesFromFileLines(lines);
 
         Strategy firstStrategy = new FirstStrategy();

@@ -1,4 +1,4 @@
-package it.tino.adventofcode.day1;
+package it.tino.adventofcode.year2022.day1;
 
 import it.tino.adventofcode.ResourcesFileReader;
 
@@ -21,7 +21,7 @@ public class CaloriesCarried {
         CaloriesCarried caloriesCarried = new CaloriesCarried();
         ResourcesFileReader fileReader = new ResourcesFileReader();
 
-        List<String> lines = fileReader.getFileLines("calories-carried-by-elves.txt");
+        List<String> lines = fileReader.getFileLines("2022/calories-carried-by-elves.txt");
         List<Integer> caloriesCarriedByElves = caloriesCarried.getCaloriesCarriedByElves(lines);
 
         List<Integer> maximumCaloriesCarried = caloriesCarried.getMaxOfList(caloriesCarriedByElves, 3);

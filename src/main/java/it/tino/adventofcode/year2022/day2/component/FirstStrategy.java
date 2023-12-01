@@ -1,4 +1,4 @@
-package it.tino.adventofcode.day2.component;
+package it.tino.adventofcode.year2022.day2.component;
 
 import java.util.Collection;
 import java.util.HashMap;
