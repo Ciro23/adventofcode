@@ -24,9 +24,12 @@ public class CubeConundrum {
 
         List<String> fileLines = fileReader.getFileLines("2023/day-2-cube-games.txt");
         Collection<Game> games = cubeConundrum.parseGamesFromStrings(fileLines);
-        int sumOfIdOfPossibleGames = cubeConundrum.sumPossibleGameIds(games, numberOfCubesAvailableByColor);
 
+        int sumOfIdOfPossibleGames = cubeConundrum.sumPossibleGameIds(games, numberOfCubesAvailableByColor);
         System.out.println("Sum of possible game ids: " + sumOfIdOfPossibleGames);
+
+        int sumOfGamePowers = cubeConundrum.sumPowersOfGames(games);
+        System.out.println("Sum of game powers: " + sumOfGamePowers);
     }
 
     private int sumPossibleGameIds(
@@ -41,6 +44,39 @@ public class CubeConundrum {
             }
         }
         return sumOfPossibleGameIds;
+    }
+
+    private int sumPowersOfGames(Collection<Game> games) {
+        int sumOfPowers = 0;
+        for (Game game : games) {
+            int power = calculatePowerOfGame(game);
+            sumOfPowers += power;
+        }
+        return sumOfPowers;
+    }
+
+    private int calculatePowerOfGame(Game game) {
+        Map<Color, Integer> maxQuantityByColors = new HashMap<>() {{
+            put(Color.RED, 0);
+            put(Color.GREEN, 0);
+            put(Color.BLUE, 0);
+        }};
+
+        for (Subset subset : game.subsets()) {
+            for (Cube cube : subset.cubes()) {
+                int currentMaxQuantity = maxQuantityByColors.get(cube.color());
+                if (cube.quantity() > currentMaxQuantity) {
+                    maxQuantityByColors.put(cube.color(), cube.quantity());
+                }
+            }
+        }
+
+        int power = 1;
+        for (int value : maxQuantityByColors.values()) {
+            power *= value;
+        }
+
+        return power;
     }
 
     private boolean isGamePossible(
