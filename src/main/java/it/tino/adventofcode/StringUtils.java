@@ -12,7 +12,7 @@ public class StringUtils {
      * are concatenated, e.g. "321" => 31, "one65" => 15.
      * @see #getNumbersInsideString(String, boolean)
      */
-    public int getFirstAndLastNumbersConcatenated(String string, boolean onlyDigits) {
+    public static int getFirstAndLastNumbersConcatenated(String string, boolean onlyDigits) {
         LinkedList<Integer> numbersInString = getNumbersInsideString(string, onlyDigits);
         return concatenateNumbers(
                 numbersInString.getFirst(),
@@ -20,7 +20,7 @@ public class StringUtils {
         );
     }
 
-    public int concatenateNumbers(int first, int second) {
+    public static int concatenateNumbers(int first, int second) {
         String concatenatedNumbers = first + "" + second;
         return Integer.parseInt(concatenatedNumbers);
     }
@@ -35,7 +35,7 @@ public class StringUtils {
      * @return E.g. "2oneight3" => [2, 3] with only digits, otherwise [2, 1, 8, 3].
      * "3twone57" => [3, 5, 7] with only digits, otherwise [3, 2, 1, 5, 7].
      */
-    public LinkedList<Integer> getNumbersInsideString(String string, boolean onlyDigits) {
+    public static LinkedList<Integer> getNumbersInsideString(String string, boolean onlyDigits) {
         LinkedList<Integer> numbers = new LinkedList<>();
 
         // Contains all the letters read in the string
